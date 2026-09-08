@@ -1,3 +1,3 @@
 In Last project i.e. TILEGEN , i converted a lidar scan stored in .las file into .pnts using py3dtiles & then tileset.json described how these .pnts are going to be organised and then streamed on web browser using cesiumjs. e streamed 3d tiles was the point cloud
 
-In this project , GEOMTILES , i am going to convert 3d geometry stored in the form of .obj file into 3D tile dataset containing tile content stored in .b3dm / .glTF files . then tileset.json will describe how .b3dm is organised & then it will we visualised using cesium.js & streamed on browser
+In this project , GEOMTILES , i am going to convert 3d geometry stored in the form of .WKB file into 3D tile dataset containing tile content stored in .b3dm / .glTF files . then tileset.json will describe how .b3dm is organised & then it will we visualised using cesium.js & streamed on browser
