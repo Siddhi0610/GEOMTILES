@@ -1,12 +1,10 @@
 from shapely import wkb
-from shapely.geometry import Polygon
+from shapely.geometry import MultiPolygon, Polygon
 
-# Building dimensions
 width = 10
 depth = 10
 height = 5
 
-# Bottom face
 bottom = [
     (0, 0, 0),
     (width, 0, 0),
@@ -15,7 +13,6 @@ bottom = [
     (0, 0, 0)
 ]
 
-# Top face
 top = [
     (0, 0, height),
     (width, 0, height),
@@ -24,7 +21,6 @@ top = [
     (0, 0, height)
 ]
 
-# For now, create the building as individual polygon faces.
 faces = [
     Polygon(bottom),
     Polygon(top),
@@ -34,13 +30,10 @@ faces = [
     Polygon([bottom[3], bottom[0], top[0], top[3], bottom[3]])
 ]
 
-# Save each face as a WKB file
-for i, face in enumerate(faces):
-    output = f"data/building_{i}.wkb"
+building = MultiPolygon(faces)
 
-    with open(output, "wb") as f:
-        f.write(wkb.dumps(face))
+with open("data/building.wkb", "wb") as f:
+    f.write(wkb.dumps(building, output_dimension=3,  flavor="iso"))
 
-    print(f"Created {output}")
-
-print("Building geometry created successfully.")
+print("Created data/building.wkb")
+print(f"Number of faces: {len(faces)}")
