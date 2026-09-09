@@ -7,3 +7,6 @@ phase 1 - 8/9/26 - converted one .wkb file into .b3dm file hence converting geom
 now phase 2 - 9/9/26 - taking three apartment flats of a building , storing each of their 3d geometries in a .wkb file. converting this 3d geometry into 3d tiles and storing it in .b3dm file. then streaming these three .b3dm files over browser. its  like segmenting a building into its flats , storing the segmented flats individually, then streaming the flats one by one to reassemble the building. 
 
 phase 2 deviation - i planned 3 .wkb files will get converted into three .b3dm files. but py3dtiles considered the 3 diff .wkb file into one tile and generated only one .b3dm file. i decided to keep it , stream it and see how it looks. 
+okay saw it, failed, it looks like a single building, i cannot see individual flats stacked. hence i will need to create individual .b3dm files 
+
+phase 3 - 9/9/26 - created invidual directories and individual .b3dm files for each .wkb file i.e. flats. now i am going to stream it.
