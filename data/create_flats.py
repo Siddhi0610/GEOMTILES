@@ -1,91 +1,89 @@
+from shapely.geometry import Polygon, MultiPolygon
 from shapely import wkb
-from shapely.geometry import MultiPolygon, Polygon
 
 
-WIDTH = 10
-DEPTH = 10
-FLOOR_HEIGHT = 3
+def create_flat(z_min, z_max, filename):
+    vertices = [
+        (0, 0, z_min),
+        (10, 0, z_min),
+        (10, 10, z_min),
+        (0, 10, z_min),
 
-
-def create_flat(z_start):
-    z_end = z_start + FLOOR_HEIGHT
-
-    bottom = [
-        (0, 0, z_start),
-        (WIDTH, 0, z_start),
-        (WIDTH, DEPTH, z_start),
-        (0, DEPTH, z_start),
-        (0, 0, z_start),
+        (0, 0, z_max),
+        (10, 0, z_max),
+        (10, 10, z_max),
+        (0, 10, z_max),
     ]
 
-    top = [
-        (0, 0, z_end),
-        (WIDTH, 0, z_end),
-        (WIDTH, DEPTH, z_end),
-        (0, DEPTH, z_end),
-        (0, 0, z_end),
-    ]
+    bottom = Polygon([
+        vertices[0],
+        vertices[1],
+        vertices[2],
+        vertices[3],
+        vertices[0]
+    ])
 
-    faces = [
-        Polygon(bottom),
-        Polygon(top),
+    top = Polygon([
+        vertices[4],
+        vertices[5],
+        vertices[6],
+        vertices[7],
+        vertices[4]
+    ])
 
-        Polygon([
-            bottom[0],
-            bottom[1],
-            top[1],
-            top[0],
-            bottom[0],
-        ]),
+    front = Polygon([
+        vertices[0],
+        vertices[1],
+        vertices[5],
+        vertices[4],
+        vertices[0]
+    ])
 
-        Polygon([
-            bottom[1],
-            bottom[2],
-            top[2],
-            top[1],
-            bottom[1],
-        ]),
+    back = Polygon([
+        vertices[3],
+        vertices[2],
+        vertices[6],
+        vertices[7],
+        vertices[3]
+    ])
 
-        Polygon([
-            bottom[2],
-            bottom[3],
-            top[3],
-            top[2],
-            bottom[2],
-        ]),
+    left = Polygon([
+        vertices[0],
+        vertices[3],
+        vertices[7],
+        vertices[4],
+        vertices[0]
+    ])
 
-        Polygon([
-            bottom[3],
-            bottom[0],
-            top[0],
-            top[3],
-            bottom[3],
-        ]),
-    ]
+    right = Polygon([
+        vertices[1],
+        vertices[2],
+        vertices[6],
+        vertices[5],
+        vertices[1]
+    ])
 
-    return MultiPolygon(faces)
+    building = MultiPolygon([
+        bottom,
+        top,
+        front,
+        back,
+        left,
+        right
+    ])
 
-
-flats = {
-    "flat_1": 0,
-    "flat_2": 3,
-    "flat_3": 6,
-}
-
-
-for name, z_start in flats.items():
-
-    geometry = create_flat(z_start)
-
-    output_path = f"data/{name}.wkb"
-
-    with open(output_path, "wb") as f:
+    with open(filename, "wb") as f:
         f.write(
             wkb.dumps(
-                geometry,
+                building,
                 output_dimension=3,
-                flavor="iso",
+                flavor="iso"
             )
         )
 
-    print(f"Created {output_path}")
+
+create_flat(0, 3, "flat1/flat_1.wkb")
+create_flat(3, 6, "flat2/flat_2.wkb")
+create_flat(6, 9, "flat3/flat_3.wkb")
+
+print("Created three independent flats.")

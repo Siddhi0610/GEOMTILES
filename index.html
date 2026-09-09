@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GEOMTILES - Three Independent Flats</title>
+    <title>GEOMTILES - Tile Debug View</title>
 
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.145/Build/Cesium/Cesium.js"></script>
 
@@ -36,104 +36,59 @@
 
             font-family: Arial, sans-serif;
             font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .flat1 {
-            color: #ff4d4d;
-        }
-
-        .flat2 {
-            color: #4dff88;
-        }
-
-        .flat3 {
-            color: #4da6ff;
         }
     </style>
 </head>
 
 <body>
 
-    <div id="cesiumContainer"></div>
+<div id="cesiumContainer"></div>
 
-    <div id="info">
-        <strong>GEOMTILES</strong><br>
-        <span class="flat1">■ Flat 1</span><br>
-        <span class="flat2">■ Flat 2</span><br>
-        <span class="flat3">■ Flat 3</span>
-    </div>
+<div id="info">
+    <strong>3D Tiles Debug View</strong><br>
+    Each tile i.e. apartment flat is automatically colorized
+</div>
 
-    <script>
+<script>
 
-        const viewer = new Cesium.Viewer("cesiumContainer", {
-            animation: false,
-            timeline: false,
-            baseLayerPicker: false,
-            geocoder: false
-        });
+    const viewer = new Cesium.Viewer("cesiumContainer", {
+        animation: false,
+        timeline: false,
+        baseLayerPicker: false,
+        geocoder: false
+    });
 
-        async function loadTileset() {
 
-            const tileset = await Cesium.Cesium3DTileset.fromUrl(
-                "./output/tileset.json"
-            );
+    async function loadTileset() {
 
-            viewer.scene.primitives.add(tileset);
+        const tileset = await Cesium.Cesium3DTileset.fromUrl(
+            "./output/tileset.json"
+        );
 
-            /*
-             * Each flat is stored as a separate nested tileset.
-             *
-             * flat1 → RED
-             * flat2 → GREEN
-             * flat3 → BLUE
-             */
+        /*
+         * Cesium automatically assigns a different
+         * debug color to each tile.
+         */
+        tileset.debugColorizeTiles = true;
 
-            tileset.tileVisible.addEventListener(function(tile) {
+        viewer.scene.primitives.add(tileset);
 
-                if (!tile.content) {
-                    return;
-                }
+        await tileset.readyPromise;
 
-                const url = tile.content.url || "";
+        viewer.camera.viewBoundingSphere(
+            tileset.boundingSphere,
+            new Cesium.HeadingPitchRange(
+                0,
+                -0.5,
+                100
+            )
+        );
+    }
 
-                if (url.includes("flat1")) {
 
-                    tile.content.color =
-                        Cesium.Color.RED.withAlpha(0.8);
+    loadTileset();
 
-                }
-
-                else if (url.includes("flat2")) {
-
-                    tile.content.color =
-                        Cesium.Color.LIME.withAlpha(0.8);
-
-                }
-
-                else if (url.includes("flat3")) {
-
-                    tile.content.color =
-                        Cesium.Color.BLUE.withAlpha(0.8);
-
-                }
-            });
-
-            await tileset.readyPromise;
-
-            viewer.camera.viewBoundingSphere(
-                tileset.boundingSphere,
-                new Cesium.HeadingPitchRange(
-                    0,
-                    -0.5,
-                    100
-                )
-            );
-        }
-
-        loadTileset();
-
-    </script>
+</script>
 
 </body>
 </html>
