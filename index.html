@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>GEOMTILES - Three Flats</title>
+    <title>GEOMTILES - Three Independent Flats</title>
 
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.145/Build/Cesium/Cesium.js"></script>
 
@@ -22,31 +21,103 @@
             padding: 0;
             overflow: hidden;
         }
+
+        #info {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+
+            padding: 12px 16px;
+            border-radius: 8px;
+
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .flat1 {
+            color: #ff4d4d;
+        }
+
+        .flat2 {
+            color: #4dff88;
+        }
+
+        .flat3 {
+            color: #4da6ff;
+        }
     </style>
 </head>
 
 <body>
 
-<div id="cesiumContainer"></div>
+    <div id="cesiumContainer"></div>
 
-<script>
+    <div id="info">
+        <strong>GEOMTILES</strong><br>
+        <span class="flat1">■ Flat 1</span><br>
+        <span class="flat2">■ Flat 2</span><br>
+        <span class="flat3">■ Flat 3</span>
+    </div>
 
-    const viewer = new Cesium.Viewer("cesiumContainer", {
-        animation: false,
-        timeline: false,
-        baseLayerPicker: false,
-        geocoder: false
-    });
+    <script>
 
-    async function loadTileset() {
+        const viewer = new Cesium.Viewer("cesiumContainer", {
+            animation: false,
+            timeline: false,
+            baseLayerPicker: false,
+            geocoder: false
+        });
 
-        try {
+        async function loadTileset() {
 
             const tileset = await Cesium.Cesium3DTileset.fromUrl(
                 "./output/tileset.json"
             );
 
             viewer.scene.primitives.add(tileset);
+
+            /*
+             * Each flat is stored as a separate nested tileset.
+             *
+             * flat1 → RED
+             * flat2 → GREEN
+             * flat3 → BLUE
+             */
+
+            tileset.tileVisible.addEventListener(function(tile) {
+
+                if (!tile.content) {
+                    return;
+                }
+
+                const url = tile.content.url || "";
+
+                if (url.includes("flat1")) {
+
+                    tile.content.color =
+                        Cesium.Color.RED.withAlpha(0.8);
+
+                }
+
+                else if (url.includes("flat2")) {
+
+                    tile.content.color =
+                        Cesium.Color.LIME.withAlpha(0.8);
+
+                }
+
+                else if (url.includes("flat3")) {
+
+                    tile.content.color =
+                        Cesium.Color.BLUE.withAlpha(0.8);
+
+                }
+            });
 
             await tileset.readyPromise;
 
@@ -58,21 +129,11 @@
                     100
                 )
             );
-
-            console.log("Three-flat tileset loaded.");
-            console.log(tileset);
-
-        } catch (error) {
-
-            console.error("Failed to load 3D Tiles:", error);
-
         }
-    }
 
-    loadTileset();
+        loadTileset();
 
-</script>
+    </script>
 
 </body>
-
 </html>

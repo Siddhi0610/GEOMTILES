@@ -1,0 +1,94 @@
+{
+    "asset": {
+        "version": "1.0"
+    },
+    "geometricError": 500,
+    "root": {
+        "boundingVolume": {
+            "box": [
+                5.0,
+                -3.0,
+                5.0,
+                5.0,
+                0.0,
+                0.0,
+                0.0,
+                3.0,
+                0.0,
+                0.0,
+                0.0,
+                5.0
+            ]
+        },
+        "geometricError": 500,
+        "refine": "ADD",
+        "children": [
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        0.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "content": {
+                    "uri": "../flat1/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -3.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "content": {
+                    "uri": "../flat2/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -6.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "content": {
+                    "uri": "../flat3/tileset/tileset.json"
+                }
+            }
+        ]
+    }
+}
