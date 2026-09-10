@@ -46,7 +46,7 @@
 
 <div id="info">
     <strong>3D Tiles Debug View</strong><br>
-    Each tile i.e. apartment flat is automatically colorized
+    Click a flat
 </div>
 
 <script>
@@ -56,10 +56,68 @@
         timeline: false,
         baseLayerPicker: false,
         geocoder: false
-        
     });
 
-   
+
+    /*
+     * PROPERTY DATA
+     *
+     * Each flat has its own Owner and 3DULPIN.
+     */
+
+    const flatData = {
+
+        flat1: {
+            owner: "A",
+            ulpin: "MH0493PA1234PA-B-14-04"
+        },
+
+        flat2: {
+            owner: "B",
+            ulpin: "MH0493PA1234PA-B-14-05"
+        },
+
+        flat3: {
+            owner: "C",
+            ulpin: "MH0493PA1234PA-B-14-06"
+        },
+
+        flat4: {
+            owner: "D",
+            ulpin: "MH0493PA1234PA-B-14-07"
+        },
+
+        flat5: {
+            owner: "E",
+            ulpin: "MH0493PA1234PA-B-14-08"
+        },
+
+        flat6: {
+            owner: "F",
+            ulpin: "MH0493PA1234PA-B-14-09"
+        },
+
+        flat7: {
+            owner: "G",
+            ulpin: "MH0493PA1234PA-B-14-10"
+        },
+
+        flat8: {
+            owner: "H",
+            ulpin: "MH0493PA1234PA-B-14-11"
+        },
+
+        flat9: {
+            owner: "I",
+            ulpin: "MH0493PA1234PA-B-14-12"
+        },
+
+        flat10: {
+            owner: "J",
+            ulpin: "MH0493PA1234PA-B-14-13"
+        }
+
+    };
 
 
     async function loadTileset() {
@@ -68,10 +126,6 @@
             "./output/tileset.json"
         );
 
-        /*
-         * Cesium automatically assigns a different
-         * debug color to each tile.
-         */
         tileset.debugColorizeTiles = true;
 
         viewer.scene.primitives.add(tileset);
@@ -87,6 +141,121 @@
             )
         );
     }
+
+
+    /*
+     * CLICK DETECTION
+     */
+
+    viewer.screenSpaceEventHandler.setInputAction(function (click) {
+
+        const pickedObject = viewer.scene.pick(click.position);
+
+
+        /*
+         * Nothing clicked
+         */
+
+        if (!Cesium.defined(pickedObject)) {
+
+            document.getElementById("info").innerHTML =
+                "<strong>Nothing selected</strong><br>" +
+                "Click directly on a flat";
+
+            return;
+        }
+
+
+        /*
+         * Find the tile containing the clicked geometry.
+         */
+
+        let tile = null;
+
+
+        if (Cesium.defined(pickedObject.tile)) {
+            tile = pickedObject.tile;
+        }
+
+
+        if (
+            !tile &&
+            Cesium.defined(pickedObject.content) &&
+            Cesium.defined(pickedObject.content.tile)
+        ) {
+            tile = pickedObject.content.tile;
+        }
+
+
+        /*
+         * Walk through the nested tile hierarchy.
+         */
+
+        let currentTile = tile;
+
+
+        while (currentTile) {
+
+            if (Cesium.defined(currentTile.content)) {
+
+                const content = currentTile.content;
+
+                const url = content.url || "";
+
+                console.log("CONTENT URL:", url);
+
+
+                /*
+                 * Check which flat was clicked.
+                 */
+
+                for (const flatName in flatData) {
+
+                    if (
+                        url.includes(flatName) ||
+                        url.includes(
+                            flatName.replace("flat", "flat_")
+                        )
+                    ) {
+
+                        const data = flatData[flatName];
+
+
+                        /*
+                         * Display the property information.
+                         */
+
+                        document.getElementById("info").innerHTML =
+                            "<strong>" +
+                            flatName.toUpperCase() +
+                            "</strong><br>" +
+                            "Owner: " +
+                            data.owner +
+                            "<br>" +
+                            "3DULPIN: " +
+                            data.ulpin;
+
+
+                        return;
+                    }
+                }
+            }
+
+
+            currentTile = currentTile.parent;
+        }
+
+
+        /*
+         * Something was clicked, but it wasn't
+         * one of our ten flats.
+         */
+
+        document.getElementById("info").innerHTML =
+            "<strong>Flat clicked</strong><br>" +
+            "No property data assigned";
+
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
 
     loadTileset();
