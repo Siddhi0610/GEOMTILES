@@ -7,13 +7,13 @@
         "boundingVolume": {
             "box": [
                 5.0,
-                -3.0,
+                -19.5,
                 5.0,
                 5.0,
                 0.0,
                 0.0,
                 0.0,
-                3.0,
+                19.5,
                 0.0,
                 0.0,
                 0.0,
@@ -41,6 +41,7 @@
                     ]
                 },
                 "geometricError": 250,
+                "refine": "ADD",
                 "content": {
                     "uri": "../flat1/tileset/tileset.json"
                 }
@@ -63,6 +64,7 @@
                     ]
                 },
                 "geometricError": 250,
+                "refine": "ADD",
                 "content": {
                     "uri": "../flat2/tileset/tileset.json"
                 }
@@ -85,8 +87,170 @@
                     ]
                 },
                 "geometricError": 250,
+                "refine": "ADD",
                 "content": {
                     "uri": "../flat3/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -12.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat4/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -16.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat5/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -20.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat6/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -24.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat7/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -28.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat8/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -32.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat9/tileset/tileset.json"
+                }
+            },
+            {
+                "boundingVolume": {
+                    "box": [
+                        5.0,
+                        -36.0,
+                        5.0,
+                        5.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0
+                    ]
+                },
+                "geometricError": 250,
+                "refine": "ADD",
+                "content": {
+                    "uri": "../flat10/tileset/tileset.json"
                 }
             }
         ]

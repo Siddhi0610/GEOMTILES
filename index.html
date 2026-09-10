@@ -58,6 +58,10 @@
         geocoder: false
     });
 
+    // Keep the building upright by preventing camera tilt.
+    // Horizontal orbit and zoom remain available.
+    viewer.scene.screenSpaceCameraController.enableTilt = false;
+
 
     async function loadTileset() {
 

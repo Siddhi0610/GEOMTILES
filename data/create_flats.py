@@ -85,5 +85,11 @@ def create_flat(z_min, z_max, filename):
 create_flat(0, 3, "flat1/flat_1.wkb")
 create_flat(3, 6, "flat2/flat_2.wkb")
 create_flat(6, 9, "flat3/flat_3.wkb")
-
-print("Created three independent flats.")
+create_flat(12, 15, "flat4/flat_4.wkb")
+create_flat(16, 19, "flat5/flat_5.wkb")
+create_flat(20, 23, "flat6/flat_6.wkb")
+create_flat(24, 27, "flat7/flat_7.wkb")
+create_flat(28, 31, "flat8/flat_8.wkb")
+create_flat(32, 35, "flat9/flat_9.wkb")
+create_flat(36, 39, "flat10/flat_10.wkb")
+print("Created ten independent flats.")
