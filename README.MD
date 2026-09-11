@@ -10,3 +10,6 @@ phase 2 deviation - i planned 3 .wkb files will get converted into three .b3dm f
 okay saw it, failed, it looks like a single building, i cannot see individual flats stacked. hence i will need to create individual .b3dm files 
 
 phase 3 - 9/9/26 - created invidual directories and individual .b3dm files for each .wkb file i.e. flats. now i am going to stream it.
+
+
+sih day- 11/9/26 - got shared 4th and named 7th position with 90 marks. in sih internals
